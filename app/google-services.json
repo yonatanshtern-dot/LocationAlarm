@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "167757419571",
+    "project_id": "location-alarm-37b75",
+    "storage_bucket": "location-alarm-37b75.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167757419571:android:a29921691876fe2d6bbf46",
+        "android_client_info": {
+          "package_name": "com.example.locationalarm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrG9JwV6Rsce_qms23QGE_rqY_LUPQDHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

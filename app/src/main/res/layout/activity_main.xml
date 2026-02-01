@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="תזכורות על פי מיקום"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="64dp"/>
+
+        <Button
+            android:id="@+id/btnMoveToRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="יצירת חשבון"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnMoveToLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="התחברות לחשבון קיים"
+            android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
