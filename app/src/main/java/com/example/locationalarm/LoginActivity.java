@@ -1,10 +1,12 @@
-package com.example.locationalarm; // וודא שזה תואם לשם החבילה שלך
+package com.example.locationalarm;
 
 import android.content.Intent;
+import android.content.SharedPreferences; // ייבוא חדש
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox; // ייבוא חדש
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,34 +20,42 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth; // המשתנה שמדבר עם פיירבייס
+    private FirebaseAuth mAuth;
     private EditText etEmail, etPassword;
+    private CheckBox cbRememberMe; // משתנה לתיבת הסימון
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // 1. אתחול של פיירבייס
         mAuth = FirebaseAuth.getInstance();
 
-        // קישור לרכיבים במסך
         etEmail = findViewById(R.id.etLoginEmail);
         etPassword = findViewById(R.id.etLoginPassword);
+        cbRememberMe = findViewById(R.id.cbLoginRememberMe); // קישור ל-xml
         Button btnNext = findViewById(R.id.btnLoginNext);
         Button btnBack = findViewById(R.id.btnBackFromLogin);
 
-        // כפתור חזור
+        // --- החלק החדש: טעינת האימייל השמור (אם יש) ---
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String savedEmail = prefs.getString("saved_email", ""); // שליפת האימייל
+        boolean isRemembered = prefs.getBoolean("is_remembered", false);
+
+        if (isRemembered) {
+            etEmail.setText(savedEmail);
+            cbRememberMe.setChecked(true);
+        }
+        // ---------------------------------------------
+
         btnBack.setOnClickListener(v -> finish());
 
-        // כפתור התחברות
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                // בדיקות תקינות (שלא השאירו שדות ריקים)
                 if (TextUtils.isEmpty(email)) {
                     etEmail.setError("נא להזין אימייל");
                     return;
@@ -55,7 +65,19 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // 2. הפקודה שבודקת מול פיירבייס
+                // --- שמירת האימייל בזיכרון אם התיבה מסומנת ---
+                SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
+                if (cbRememberMe.isChecked()) {
+                    editor.putString("saved_email", email);
+                    editor.putBoolean("is_remembered", true);
+                } else {
+                    // אם המשתמש ביטל את הסימון, נמחק את הזיכרון
+                    editor.remove("saved_email");
+                    editor.putBoolean("is_remembered", false);
+                }
+                editor.apply(); // ביצוע השמירה
+                // ---------------------------------------------
+
                 loginUser(email, password);
             }
         });
@@ -67,16 +89,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // הצלחה! המשתמש קיים והסיסמה נכונה
                             Toast.makeText(LoginActivity.this, "התחברת בהצלחה!", Toast.LENGTH_SHORT).show();
-
-                            // כאן בדרך כלל עוברים למסך הראשי של האפליקציה
-                            // Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-                            // startActivity(intent);
-                            // finish();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
                         } else {
-                            // כישלון! (סיסמה לא נכונה או משתמש לא קיים)
-                            Toast.makeText(LoginActivity.this, "שגיאה בהתחברות: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "שגיאה: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });

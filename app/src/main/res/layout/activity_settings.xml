@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="חזור &lt;"
+        android:background="@android:color/transparent"
+        android:textColor="#000000"
+        android:layout_gravity="start"
+        android:layout_marginBottom="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="הגדרות"
+        android:textSize="28sp"
+        android:layout_marginBottom="40dp"/>
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="שינוי סיסמה"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnChangeRingtone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="שינוי צליל התראה"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="מחיקת חשבון"
+        android:backgroundTint="#D32F2F"
+        android:layout_marginBottom="40dp"/>
+
+    <Button
+        android:id="@+id/btnLogoutFromSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="התנתקות מהחשבון"
+        style="?android:attr/borderlessButtonStyle"/>
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="התנתקות מהחשבון"
+        android:backgroundTint="#D32F2F"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="24dp"/>
+</LinearLayout>
