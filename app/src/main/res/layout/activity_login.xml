@@ -1,55 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:gravity="center"
     android:padding="24dp">
-
-    <Button
-        android:id="@+id/btnBackFromLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="חזור &lt;"
-        android:background="@android:color/transparent"
-        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="התחברות"
-        android:textSize="28sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"/>
+        android:text="ברוך שובך!"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="8dp"/>
 
-    <EditText
-        android:id="@+id/etLoginEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="אימייל"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="16dp"/>
-
-    <EditText
-        android:id="@+id/etLoginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="סיסמה"
-        android:inputType="textPassword"
-        android:layout_marginBottom="16dp"/>
-
-    <CheckBox
-        android:id="@+id/cbLoginRememberMe"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="זכור אותי"
-        android:layout_marginBottom="24dp"/>
+        android:text="התחבר לחשבון שלך כדי להמשיך"
+        android:textSize="18sp"
+        android:textColor="@color/textColorSecondary"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"/>
 
-    <Button
-        android:id="@+id/btnLoginNext"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/colorCard"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <EditText
+                android:id="@+id/etLoginEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="אימייל"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/bg_edittext_rounded"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/etLoginPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="סיסמה"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_edittext_rounded"
+                android:padding="14dp"
+                android:layout_marginBottom="24dp"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"/>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="היכנס לאפליקציה"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_button_rounded"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="הבא"
-        android:layout_gravity="center"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="עדיין אין לך חשבון?"
+            android:textSize="16sp"
+            android:textColor="@color/textColorSecondary"/>
+
+        <Button
+            android:id="@+id/btnGoToRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הרשם כאן"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"/>
+    </LinearLayout>
 
 </LinearLayout>

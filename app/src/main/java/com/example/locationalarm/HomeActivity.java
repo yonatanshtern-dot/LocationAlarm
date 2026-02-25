@@ -12,19 +12,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        // כפתור הוספת תזכורת
-        findViewById(R.id.btnNavAddReminder).setOnClickListener(v -> {
+        findViewById(R.id.cardAddReminder).setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, AddReminderActivity.class));
         });
-
-        // כפתור תזכורות קיימות
-        findViewById(R.id.btnNavShowReminders).setOnClickListener(v -> {
+        findViewById(R.id.cardViewReminders).setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, RemindersListActivity.class));
         });
-
-        // כפתור הגדרות
-        findViewById(R.id.btnNavSettings).setOnClickListener(v -> {
+        findViewById(R.id.cardSettings).setOnClickListener(v -> {
             startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
         });
     }

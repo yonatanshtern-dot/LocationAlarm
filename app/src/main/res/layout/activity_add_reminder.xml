@@ -1,70 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical">
+
         <Button
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="חזור &lt;"
+            android:text="&lt; חזור"
             android:background="@android:color/transparent"
-            android:textColor="#000000"
-            android:layout_gravity="left" />
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="הוספת תזכורת"
-            android:textSize="24sp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center"/>
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:gravity="center"/>
 
-        <EditText
-            android:id="@+id/etReminderTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="שם התזכורת"
-            android:layout_marginBottom="16dp"/>
-
-        <EditText
-            android:id="@+id/etReminderDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="תאריך (בחר תאריך)"
-            android:focusable="false"
-            android:layout_marginBottom="16dp"/>
-        <EditText
-            android:id="@+id/etReminderTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="שעה (לא חובה)"
-            android:focusable="false"
-            android:layout_marginBottom="24dp"/>
-
-        <fragment
-            android:id="@+id/mapFragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="16dp" />
-
-        <Switch
-            android:id="@+id/swSound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="הפעל צליל התראה"
-            android:layout_marginBottom="32dp"/>
-
-        <Button
-            android:id="@+id/btnSaveReminder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="שמור תזכורת"/>
-
+        <Space
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-</ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/colorCard"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:id="@+id/etReminderTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="שם התזכורת"
+                        android:background="@drawable/bg_edittext_rounded"
+                        android:padding="14dp"
+                        android:layout_marginBottom="12dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/etReminderDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="בחר תאריך"
+                        android:focusable="false"
+                        android:background="@drawable/bg_edittext_rounded"
+                        android:padding="14dp"
+                        android:layout_marginBottom="12dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp"/>
+
+                    <EditText
+                        android:id="@+id/etReminderTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="בחר שעה (לא חובה)"
+                        android:focusable="false"
+                        android:background="@drawable/bg_edittext_rounded"
+                        android:padding="14dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="בחר מיקום לתזכורת:"
+                        android:padding="12dp"
+                        android:textColor="@color/textColorPrimary"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:background="@color/colorCard"/>
+
+                    <fragment
+                        android:id="@+id/mapFragment"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnSaveReminder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="שמור תזכורת"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_button_rounded"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
