@@ -1,0 +1,102 @@
+@startuml
+class com.example.locationalarm.ExampleUnitTest {
++ void addition_isCorrect()
+}
+
+class com.example.locationalarm.RemindersListActivity {
+- RecyclerView rvReminders
+- ReminderAdapter adapter
+- List<Reminder> reminderList
+# void onCreate(Bundle)
+- void loadReminders()
+}
+
+
+class com.example.locationalarm.RegisterActivity {
+- EditText etEmail
+- FirebaseAuth mAuth
+# void onCreate(Bundle)
+}
+
+
+class com.example.locationalarm.ReminderAdapter {
+- List<Reminder> reminders
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
+}
+
+
+class com.example.locationalarm.ReminderAdapter$ViewHolder {
+~ TextView tvTitle
+~ ImageView btnDelete
+}
+
+class com.example.locationalarm.SettingsActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.locationalarm.AddReminderActivity {
+- GoogleMap mMap
+- double selectedLat
+- double selectedLng
+- com.google.android.gms.location.GeofencingClient geofencingClient
+- {static} int LOCATION_PERMISSION_REQUEST_CODE
+# void onCreate(Bundle)
++ void onMapReady(GoogleMap)
+- void enableMyLocation()
++ void onRequestPermissionsResult(int,String[],int[])
+}
+
+
+class com.example.locationalarm.Reminder {
++ String id
++ String title
++ String date
++ String time
++ double latitude
++ double longitude
+}
+
+class com.example.locationalarm.LoginActivity {
+- EditText etEmail
+- FirebaseAuth mAuth
+# void onCreate(Bundle)
+# void onStart()
+}
+
+
+class com.example.locationalarm.GeofenceReceiver {
++ void onReceive(Context,Intent)
+- boolean isTimeValid(String,String)
+- void sendNotification(Context,String,String)
+}
+
+class com.example.locationalarm.MainActivity {
+# void onStart()
+# void onCreate(Bundle)
+}
+
+class com.example.locationalarm.HomeActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.locationalarm.ExampleInstrumentedTest {
++ void useAppContext()
+}
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.RemindersListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.RegisterActivity
+com.example.locationalarm.Adapter <|-- com.example.locationalarm.ReminderAdapter
+com.example.locationalarm.ReminderAdapter +.. com.example.locationalarm.ReminderAdapter$ViewHolder
+com.example.locationalarm.ViewHolder <|-- com.example.locationalarm.ReminderAdapter$ViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.SettingsActivity
+com.google.android.gms.maps.OnMapReadyCallback <|.. com.example.locationalarm.AddReminderActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.AddReminderActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.LoginActivity
+android.content.BroadcastReceiver <|-- com.example.locationalarm.GeofenceReceiver
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.locationalarm.HomeActivity
+@enduml

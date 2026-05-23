@@ -33,6 +33,9 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
     private double selectedLng = 0;
     private com.google.android.gms.location.GeofencingClient geofencingClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    private int selectedYear = 0, selectedMonth = 0, selectedDay = 0;
+    private int selectedHour = 0, selectedMinute = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         geofencingClient = com.google.android.gms.location.LocationServices.getGeofencingClient(this);
@@ -50,7 +53,11 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
                     AddReminderActivity.this,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
-                        public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                        public void onDateSet(DatePicker view, int yearValue, int monthValue, int dayOfMonthValue) {
+                            selectedYear = yearValue;
+                            selectedMonth = monthValue;
+                            selectedDay = dayOfMonthValue;
+
                             String dateString = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                             etReminderDate.setText(dateString);
                         }
@@ -68,8 +75,10 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
                     AddReminderActivity.this,
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int selectedMinute) {
-                            String timeString = String.format("%02d:%02d", hourOfDay, selectedMinute);
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minuteValue) {
+                            selectedHour = hourOfDay;
+                            selectedMinute = minuteValue;
+                            String timeString = String.format("%02d:%02d", selectedHour, selectedMinute);
                             etReminderTime.setText(timeString);
                         }
                     },
@@ -86,6 +95,29 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
         EditText etDate = findViewById(R.id.etReminderDate);
         EditText etTime = findViewById(R.id.etReminderTime);
         btnSave.setOnClickListener(v -> {
+            if (selectedYear == 0) {
+                Toast.makeText(this, "חובה לבחור תאריך לתזכורת!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Calendar currentCal = Calendar.getInstance();
+            Calendar selectedCal = Calendar.getInstance();
+            selectedCal.set(Calendar.YEAR, selectedYear);
+            selectedCal.set(Calendar.MONTH, selectedMonth);
+            selectedCal.set(Calendar.DAY_OF_MONTH, selectedDay);
+            if (selectedHour == 0 && selectedMinute == 0) {
+                selectedCal.set(Calendar.HOUR_OF_DAY, 23);
+                selectedCal.set(Calendar.MINUTE, 59);
+            } else {
+                selectedCal.set(Calendar.HOUR_OF_DAY, selectedHour);
+                selectedCal.set(Calendar.MINUTE, selectedMinute);
+            }
+            selectedCal.set(Calendar.SECOND, 0);
+            selectedCal.set(Calendar.MILLISECOND, 0);
+            if (selectedCal.before(currentCal)) {
+                etReminderTime.setError("הזמן כבר עבר");
+                Toast.makeText(this, "לא ניתן לקבוע תזכורת לזמן שכבר עבר!", Toast.LENGTH_LONG).show();
+                return;
+            }
             String title = etTitle.getText().toString().trim();
             String date = etDate.getText().toString().trim();
             String rawTime = etTime.getText().toString().trim();
@@ -151,7 +183,7 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (mMap != null) {
-                mMap.setMyLocationEnabled(true); // מוסיף את הכפתור של ה-GPS למפה
+                mMap.setMyLocationEnabled(true);
             }
         } else {
             ActivityCompat.requestPermissions(this,
