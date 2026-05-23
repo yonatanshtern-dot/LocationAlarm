@@ -1,4 +1,4 @@
-package com.example.locationalarm; // ודא שזה תואם לשם החבילה שלך
+package com.example.locationalarm;
 
 import android.content.Intent;
 import android.os.Bundle;
