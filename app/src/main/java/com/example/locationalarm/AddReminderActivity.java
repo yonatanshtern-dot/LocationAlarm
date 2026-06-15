@@ -27,7 +27,33 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Calendar;
 
 public class AddReminderActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private void searchAddress() {
+        EditText etSearchAddress = findViewById(R.id.etSearchAddress);
+        String locationName = etSearchAddress.getText().toString().trim();
+        if (locationName.isEmpty()) {
+            Toast.makeText(this, "נא להזין כתובת לחיפוש", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        android.location.Geocoder geocoder = new android.location.Geocoder(this, new java.util.Locale("he", "IL"));        try {
+            java.util.List<android.location.Address> addressList = geocoder.getFromLocationName(locationName, 1);
+            if (addressList != null && !addressList.isEmpty()) {
+                android.location.Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(latLng).title(locationName));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                selectedLat = address.getLatitude();
+                selectedLng = address.getLongitude();
 
+                Toast.makeText(this, "המיקום נמצא!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "הכתובת לא נמצאה, נסה להיות מדויק יותר", Toast.LENGTH_SHORT).show();
+            }
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "שגיאת רשת בחיפוש הכתובת", Toast.LENGTH_SHORT).show();
+        }
+    }
     private GoogleMap mMap;
     private double selectedLat = 0;
     private double selectedLng = 0;
@@ -41,6 +67,8 @@ public class AddReminderActivity extends AppCompatActivity implements OnMapReady
         geofencingClient = com.google.android.gms.location.LocationServices.getGeofencingClient(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
+        Button btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(v -> searchAddress());
         Button btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
         EditText etReminderDate = findViewById(R.id.etReminderDate);
